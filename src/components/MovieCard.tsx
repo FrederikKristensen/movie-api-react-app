@@ -1,18 +1,16 @@
-
 const MovieCard = ({movie}) => {
-
-// alert is placeholder
+  // alert is placeholder
   function onFavoriteClick() {
-    alert("Clicked")
+    alert('Clicked');
   }
 
-// Class names are placeholder
+  // Class names are placeholder
   return (
     <div className="movie-card">
       <div className="movie-poster">
         <img src={movie.url} alt={movie.title} />
         <div className="movie-overlay">
-          <button className="favorite-btn" onClick={onFavoriteClick}>           
+          <button className="favorite-btn" onClick={onFavoriteClick}>
             ★
           </button>
         </div>
@@ -22,7 +20,7 @@ const MovieCard = ({movie}) => {
         <p>{movie.release_date}</p>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default MovieCard
+export default MovieCard;
