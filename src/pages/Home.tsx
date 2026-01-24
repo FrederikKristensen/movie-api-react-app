@@ -1,3 +1,5 @@
+import MovieCard from '../components/MovieCard.tsx';
+
 const Home = () => {
   const movies = [
     { id: 1, title: 'John Wick', release_date: '2012' },
@@ -8,7 +10,20 @@ const Home = () => {
     { id: 6, title: 'Interstellar', release_date: '2014' },
   ];
 
-  return <div className="home">Home page</div>;
+  const handleSearch = () => {};
+
+  return (
+    <div className="home">
+      <form onSubmit={handleSearch} className="">
+        <input type="text" placeholder="Search for movies..." className="search-input" />
+      </form>
+      <div className="movies-grid">
+        {movies.map((movie) => (
+          <MovieCard movie={movie} key={movie.id} />
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default Home;
