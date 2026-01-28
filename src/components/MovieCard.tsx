@@ -1,4 +1,4 @@
-const MovieCard = ({movie}) => {
+const MovieCard = ({ movie }) => {
   // alert is placeholder
   function onFavoriteClick() {
     alert('Clicked');

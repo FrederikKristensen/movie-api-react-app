@@ -2,8 +2,9 @@ import MovieCard from '../components/MovieCard.tsx';
 import { useState } from 'react';
 
 const Home = () => {
-  const [ searchQuery, setSearchQuery ] = useState(''); 
+  const [searchQuery, setSearchQuery] = useState('');
 
+  // Our dummy data
   const movies = [
     { id: 1, title: 'John Wick', release_date: '2012' },
     { id: 2, title: 'Inception', release_date: '2010' },
@@ -13,6 +14,7 @@ const Home = () => {
     { id: 6, title: 'Interstellar', release_date: '2014' },
   ];
 
+  // our handler of onsumbit of our form
   const handleSearch = (e) => {
     e.preventDefault();
     alert(searchQuery);
@@ -33,9 +35,11 @@ const Home = () => {
         </button>
       </form>
       <div className="movies-grid">
-        {movies.map((movie) => (
-          <MovieCard movie={movie} key={movie.id} />
-        ))}
+        {movies.map((movie) =>
+            movie.title.toLowerCase().startsWith(searchQuery) && (
+              <MovieCard movie={movie} key={movie.id} />
+            )
+        )}
       </div>
     </div>
   );
