@@ -1,23 +1,40 @@
 import MovieCard from '../components/MovieCard.tsx';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { searchMovies , getPopularMovies } from '../services/api.js';
 
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState('');
+  const [movies, setMovies] = useState([]);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // Our dummy data
-  const movies = [
-    { id: 1, title: 'John Wick', release_date: '2012' },
-    { id: 2, title: 'Inception', release_date: '2010' },
-    { id: 3, title: 'The Dark Knight', release_date: '2008' },
-    { id: 4, title: 'Pulp Fiction', release_date: '1994' },
-    { id: 5, title: 'The Matrix', release_date: '1999' },
-    { id: 6, title: 'Interstellar', release_date: '2014' },
-  ];
+  useEffect(() => {
+    const loadPopularMovies = async () => {
+      try {
+        const popularMovies = await getPopularMovies();
+        setMovies(popularMovies);
+      } catch (err) {
+        console.log(err);
+        setError('Failed to load movies..');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadPopularMovies();
+  }, []);
+  // Dummy data
+  // const movies = [
+  //   { id: 1, title: 'Johnwick', release_date: '2020' },
+  //   { id: 2, title: 'Vemom', release_date: '2020' },
+  //   { id: 3, title: 'Johnwick2', release_date: '2020' },
+  // ];
 
   // our handler of onsumbit of our form
   const handleSearch = (e) => {
     e.preventDefault();
     alert(searchQuery);
+    setSearchQuery('');
   };
 
   return (
