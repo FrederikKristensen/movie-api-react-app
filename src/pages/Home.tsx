@@ -1,6 +1,6 @@
 import MovieCard from '../components/MovieCard.tsx';
 import { useState, useEffect } from 'react';
-import { searchMovies , getPopularMovies } from '../services/api.js';
+import { searchMovies , getPopularMovies } from '../services/api';
 
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -23,12 +23,6 @@ const Home = () => {
 
     loadPopularMovies();
   }, []);
-  // Dummy data
-  // const movies = [
-  //   { id: 1, title: 'Johnwick', release_date: '2020' },
-  //   { id: 2, title: 'Vemom', release_date: '2020' },
-  //   { id: 3, title: 'Johnwick2', release_date: '2020' },
-  // ];
 
   // our handler of onsumbit of our form
   const handleSearch = (e) => {
