@@ -7,7 +7,7 @@ import NavBar from './components/NavBar.tsx';
 function App() {
   return (
     <>
-      <div className="bg-sky-50">
+      <div>
         <NavBar />
         <main className="main-content">
           <Routes>

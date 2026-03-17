@@ -1,6 +1,6 @@
 import MovieCard from '../components/MovieCard.tsx';
 import { useState, useEffect } from 'react';
-import { searchMovies , getPopularMovies } from '../services/api';
+import { searchMovies, getPopularMovies } from '../services/api';
 
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -8,13 +8,14 @@ const Home = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // We store out movies with useffect so we dont keep calling the api
   useEffect(() => {
     const loadPopularMovies = async () => {
       try {
         const popularMovies = await getPopularMovies();
         setMovies(popularMovies);
-      } catch (err) {
-        console.log(err);
+      } catch (error) {
+        console.log(error);
         setError('Failed to load movies..');
       } finally {
         setLoading(false);
@@ -25,14 +26,27 @@ const Home = () => {
   }, []);
 
   // our handler of onsumbit of our form
-  const handleSearch = (e) => {
+  const handleSearch = async (e) => {
     e.preventDefault();
-    alert(searchQuery);
-    setSearchQuery('');
+    // Removes all whitespaces to ensure it is not only spaces
+    if (!searchQuery.trim()) return;
+    if (loading) return;
+
+    setLoading(true);
+    try {
+      const searchResults = await searchMovies(searchQuery);
+      setMovies(searchResults);
+      setError(null);
+    } catch (error) {
+      console.log(error);
+      setError('Failed to search movies...');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="home">
+    <div className="home -mx-30">
       <form onSubmit={handleSearch} className="">
         <input
           type="text"
@@ -45,14 +59,19 @@ const Home = () => {
           Search
         </button>
       </form>
-      <div className="movies-grid">
-        {movies.map(
-          (movie) =>
-            movie.title.toLowerCase().startsWith(searchQuery) && (
-              <MovieCard movie={movie} key={movie.id} />
-            )
-        )}
-      </div>
+
+      {/* Error message if api fails */}
+      {error && <div className="error-message">{error}</div>}
+      {/* Display if movies are getting loaded */}
+      {loading ? (
+        <div className="loading">Loading...</div>
+      ) : (
+        <div className="movies-grid grid grid-cols-6 gap-4">
+          {movies.map((movie) => (
+            <MovieCard movie={movie} key={movie.id} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
