@@ -47,6 +47,7 @@ const Home = () => {
 
   return (
     <div className="home -mx-30">
+      {/* TODO style searchbar */}
       <form onSubmit={handleSearch} className="">
         <input
           type="text"
