@@ -47,16 +47,18 @@ const Home = () => {
 
   return (
     <div className="home -mx-30">
-      {/* TODO style searchbar */}
-      <form onSubmit={handleSearch} className="">
+      <form onSubmit={handleSearch} className="p-5 space-x-3">
         <input
           type="text"
           placeholder="Search for movies..."
-          className="search-input"
+          className="search-input bg-neutral-700 p-4 rounded-xl focus-visible:outline-0 placeholder:text-neutral-400 text-white"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-        <button type="submit" className="search-button">
+        <button
+          type="submit"
+          className="search-button p-4 bg-red-800 rounded-xl font-bold text-white"
+        >
           Search
         </button>
       </form>
