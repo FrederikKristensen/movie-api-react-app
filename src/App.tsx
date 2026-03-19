@@ -2,12 +2,13 @@ import './css/App.css';
 import Favorites from './pages/Favorites.tsx';
 import Home from './pages/Home.tsx';
 import { Routes, Route } from 'react-router-dom';
+import { MovieProvider } from './context/Moviecontex.tsx';
 import NavBar from './components/NavBar.tsx';
 
 function App() {
   return (
     <>
-      <div>
+      <MovieProvider>
         <div className="sticky top-0 bg-neutral-800 z-50 w-full">
           <NavBar />
         </div>
@@ -17,7 +18,7 @@ function App() {
             <Route path="/favorites" element={<Favorites />} />
           </Routes>
         </main>
-      </div>
+      </MovieProvider>
     </>
   );
 }
